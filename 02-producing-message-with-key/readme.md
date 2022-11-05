@@ -12,8 +12,8 @@ value 25 with key key-1
 value 29 with key key-1
 ```
 
-```
-consumer-is-realtime % kafka-console-consumer --bootstrap-server localhost:9092 --topic t-multi-partitions --offset earliest --partition 1
+```sh
+kafka-console-consumer --bootstrap-server localhost:9092 --topic t-multi-partitions --offset earliest --partition 1
 value 0 with key key-0
 value 4 with key key-0
 value 8 with key key-0
@@ -24,8 +24,8 @@ value 24 with key key-0
 value 28 with key key-0
 ```
 
-```
-consumer-is-realtime % kafka-console-consumer --bootstrap-server localhost:9092 --topic t-multi-partitions --offset earliest --partition 2
+```sh
+kafka-console-consumer --bootstrap-server localhost:9092 --topic t-multi-partitions --offset earliest --partition 2
 value 2 with key key-2
 value 3 with key key-3
 value 6 with key key-2
