@@ -1,0 +1,64 @@
+{
+  "num_rows": 100,
+  "file_format": "json",
+  "name": "Spring Kafka - Person Address (JSON)",
+  "array": true,
+  "columns": [
+    {
+      "name": "person_id",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 1,
+      "max": 90000,
+      "decimals": 0,
+      "formula": null
+    },
+    {
+      "name": "full_name",
+      "null_percentage": 0,
+      "type": "Full Name",
+      "formula": null
+    },
+    {
+      "name": "email",
+      "null_percentage": 0,
+      "type": "Email Address",
+      "formula": null
+    },
+    {
+      "name": "addresses",
+      "null_percentage": 0,
+      "type": "JSON Array",
+      "minItems": 1,
+      "maxItems": 3,
+      "formula": null
+    },
+    {
+      "name": "addresses.address_id",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 1,
+      "max": 20000,
+      "decimals": 0,
+      "formula": null
+    },
+    {
+      "name": "addresses.address",
+      "null_percentage": 0,
+      "type": "Street Address",
+      "formula": null
+    },
+    {
+      "name": "addresses.city",
+      "null_percentage": 0,
+      "type": "City",
+      "formula": null
+    },
+    {
+      "name": "addresses.postal_code",
+      "null_percentage": 0,
+      "type": "Postal Code",
+      "formula": null
+    }
+  ]
+}

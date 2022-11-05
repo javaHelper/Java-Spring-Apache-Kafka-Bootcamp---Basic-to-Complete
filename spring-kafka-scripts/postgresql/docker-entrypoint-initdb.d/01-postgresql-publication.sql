@@ -1,0 +1,1 @@
+CREATE PUBLICATION dbz_publication FOR ALL TABLES;

@@ -1,0 +1,50 @@
+{
+  "num_rows": 20,
+  "file_format": "sql",
+  "name": "Spring Kafka - Marketing Sales",
+  "table_name": "mkt_sales",
+  "include_create_sql": true,
+  "columns": [
+    {
+      "name": "sales_id",
+      "null_percentage": 0,
+      "type": "Row Number",
+      "formula": null
+    },
+    {
+      "name": "sales_amount",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 500,
+      "max": 5000,
+      "decimals": 0,
+      "formula": null
+    },
+    {
+      "name": "sales_currency",
+      "null_percentage": 0,
+      "type": "Custom List",
+      "values": [
+        "USD"
+      ],
+      "selectionStyle": "random",
+      "distribution": null,
+      "formula": null
+    },
+    {
+      "name": "sales_date",
+      "null_percentage": 0,
+      "type": "Datetime",
+      "min": "02/04/2021",
+      "max": "12/31/2022",
+      "format": "%Y-%m-%d",
+      "formula": null
+    },
+    {
+      "name": "customer_email",
+      "null_percentage": 0,
+      "type": "Email Address",
+      "formula": null
+    }
+  ]
+}

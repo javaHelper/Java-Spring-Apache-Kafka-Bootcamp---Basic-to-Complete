@@ -1,0 +1,56 @@
+{
+  "num_rows": 10,
+  "file_format": "csv",
+  "name": "Spring Kafka - Employee (CSV)",
+  "include_header": true,
+  "columns": [
+    {
+      "name": "employee_id",
+      "null_percentage": 0,
+      "type": "EIN",
+      "formula": ""
+    },
+    {
+      "name": "first_name",
+      "null_percentage": 0,
+      "type": "First Name",
+      "formula": ""
+    },
+    {
+      "name": "last_name",
+      "null_percentage": 0,
+      "type": "Last Name",
+      "formula": ""
+    },
+    {
+      "name": "email",
+      "null_percentage": 0,
+      "type": "Email Address",
+      "formula": ""
+    },
+    {
+      "name": "gender",
+      "null_percentage": 0,
+      "type": "Gender (abbrev)",
+      "formula": ""
+    },
+    {
+      "name": "birth_date",
+      "null_percentage": 0,
+      "type": "Datetime",
+      "min": "1/1/1980",
+      "max": "12/31/2000",
+      "format": "%Y-%m-%d",
+      "formula": ""
+    },
+    {
+      "name": "salary",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 1000,
+      "max": 10000,
+      "decimals": 0,
+      "formula": ""
+    }
+  ]
+}

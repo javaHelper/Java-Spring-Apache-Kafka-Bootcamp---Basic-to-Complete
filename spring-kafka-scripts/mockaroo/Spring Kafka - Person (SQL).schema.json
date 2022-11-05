@@ -1,0 +1,36 @@
+{
+  "num_rows": 100,
+  "file_format": "sql",
+  "name": "Spring Kafka - Person (SQL)",
+  "table_name": "people",
+  "include_create_sql": false,
+  "columns": [
+    {
+      "name": "person_id",
+      "null_percentage": 0,
+      "type": "Sequence",
+      "start": 2001,
+      "step": 1,
+      "repeat": 1,
+      "formula": null
+    },
+    {
+      "name": "id_card_number",
+      "null_percentage": 0,
+      "type": "SSN",
+      "formula": null
+    },
+    {
+      "name": "full_name",
+      "null_percentage": 0,
+      "type": "Full Name",
+      "formula": null
+    },
+    {
+      "name": "email",
+      "null_percentage": 0,
+      "type": "Email Address",
+      "formula": null
+    }
+  ]
+}

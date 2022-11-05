@@ -1,0 +1,45 @@
+{
+  "num_rows": 250,
+  "file_format": "sql",
+  "name": "Spring Kafka - Address (SQL)",
+  "table_name": "people_addresses",
+  "include_create_sql": false,
+  "columns": [
+    {
+      "name": "address_id",
+      "null_percentage": 0,
+      "type": "Sequence",
+      "start": 3001,
+      "step": 1,
+      "repeat": 1,
+      "formula": null
+    },
+    {
+      "name": "person_id",
+      "null_percentage": 0,
+      "type": "Sequence",
+      "start": 2001,
+      "step": 1,
+      "repeat": 1,
+      "formula": null
+    },
+    {
+      "name": "address",
+      "null_percentage": 0,
+      "type": "Street Address",
+      "formula": null
+    },
+    {
+      "name": "city",
+      "null_percentage": 0,
+      "type": "City",
+      "formula": null
+    },
+    {
+      "name": "postal_code",
+      "null_percentage": 0,
+      "type": "Postal Code",
+      "formula": null
+    }
+  ]
+}

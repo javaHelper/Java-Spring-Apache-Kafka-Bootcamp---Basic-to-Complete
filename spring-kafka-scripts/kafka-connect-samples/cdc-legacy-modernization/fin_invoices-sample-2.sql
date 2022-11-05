@@ -1,0 +1,10 @@
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (101, 4427, 'USD', 'INV-048726-FBN', '2022-08-21');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (102, 2262, 'USD', 'INV-188277-JGW', '2021-08-31');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (103, 4237, 'USD', 'INV-329713-ALE', '2022-05-10');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (104, 3477, 'USD', 'INV-141017-VCN', '2021-04-30');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (105, 1621, 'USD', 'INV-580264-UTN', '2021-11-14');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (106, 3368, 'USD', 'INV-753184-EAO', '2021-08-12');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (107, 4786, 'USD', 'INV-949028-ZQT', '2021-03-17');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (108, 2010, 'USD', 'INV-643596-FKC', '2021-07-19');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (109, 3309, 'USD', 'INV-230300-HVX', '2022-03-10');
+insert into fin_invoices (invoice_id, invoice_amount, invoice_currency, invoice_number, invoice_date) values (110, 3549, 'USD', 'INV-361665-TUI', '2022-08-09');
