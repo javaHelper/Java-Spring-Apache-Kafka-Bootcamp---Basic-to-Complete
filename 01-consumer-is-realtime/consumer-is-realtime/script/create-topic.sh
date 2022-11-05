@@ -1,0 +1,1 @@
+kafka-topics --bootstrap-server localhost:9092 --create --topic t-fixedrate --partitions 1 --replication-factor 1
