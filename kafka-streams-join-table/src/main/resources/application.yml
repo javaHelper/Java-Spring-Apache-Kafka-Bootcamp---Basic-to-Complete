@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: stream-table-sample
+
+  cloud:
+    stream:
+      bindings:
+        process-in-0:
+          destination: user-clicks
+        process-in-1:
+          destination: user-regions
+        process-out-0:
+          destination: output-topic
+      kafka:
+        streams:
+          binder:
+            configuration:
+              default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              commit.interval.ms: 1000
