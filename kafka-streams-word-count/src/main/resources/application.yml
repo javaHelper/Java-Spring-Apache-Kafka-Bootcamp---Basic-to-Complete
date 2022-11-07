@@ -1,0 +1,17 @@
+spring.cloud.stream:
+  function:
+    definition: process
+    bindings:
+      process-in-0: words
+      process-out-0: counts
+
+
+  kafka:
+    streams:
+      binder:
+        applicationId: hello-word-count-sample
+        configuration:
+          commit.interval.ms: 100
+          default:
+            key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
