@@ -1,0 +1,8 @@
+spring.application.name: kafka-streams-aggregate-sample
+spring.cloud.stream.bindings.aggregate-in-0:
+  destination: foobar
+spring.cloud.stream.kafka.streams.binder:
+  configuration:
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    commit.interval.ms: 1000
