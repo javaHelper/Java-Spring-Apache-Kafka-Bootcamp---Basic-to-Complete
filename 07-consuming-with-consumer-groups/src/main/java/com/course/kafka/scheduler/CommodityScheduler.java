@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class CommodityScheduler {
+    public static final String API = "http://localhost:8080/api/commodity/v1/all";
     private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
@@ -21,7 +22,7 @@ public class CommodityScheduler {
 
     @Scheduled(fixedRate = 5000)
     public void fetchCommodities(){
-        List<Commodity> commodities = restTemplate.exchange("http://localhost:8080/api/commodity/v1/all", HttpMethod.GET, null,
+        List<Commodity> commodities = restTemplate.exchange(API, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Commodity>>() {
                 }).getBody();
 
