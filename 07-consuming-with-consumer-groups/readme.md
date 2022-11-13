@@ -84,3 +84,22 @@ GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  
 cg-notification t-commodity     0          26              26              0               -               -               -
 prateekashtikar@Prateeks-MacBook-Pro 06-customizing-json-msg % 
 ```
+
+- You can reset the offset like below 
+
+```sh
+ kafka-consumer-groups --bootstrap-server localhost:9092 --group cg-dashboard --execute --reset-offsets --to-offset 10 --topic t-commodity:0
+
+GROUP                          TOPIC                          PARTITION  NEW-OFFSET     
+cg-dashboard                   t-commodity                    0          10           
+
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --group cg-dashboard --describe
+
+Consumer group 'cg-dashboard' has no active members.
+
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+cg-dashboard    t-commodity     0          10              26              16              -               -               -
+
+```
+
