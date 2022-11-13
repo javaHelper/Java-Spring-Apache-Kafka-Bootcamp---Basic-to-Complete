@@ -64,3 +64,23 @@ prateekashtikar@Prateeks-MacBook-Pro 06-customizing-json-msg % kafka-console-con
 [Kafka Core Consumer] 12:09:25.773  INFO --- c.c.k.c.CommodityDashboardConsumer       : >> Dashboard logic for : Commodity(name=copper, price=5184.879912316648, measurement=tonne, timestamp=1668282437148)
 [Kafka Core Consumer] 12:09:25.773  INFO --- c.c.k.c.CommodityDashboardConsumer       : >> Dashboard logic for : Commodity(name=gold, price=1887.2088342224279, measurement=ounce, timestamp=1668282442156)
 ````
+
+
+```sh
+kafka-consumer-groups --bootstrap-server localhost:9092 --group cg-dashboard --describe 
+
+Consumer group 'cg-dashboard' has no active members.
+
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+cg-dashboard    t-commodity     0          26              26              0               -               -               -
+
+
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --group cg-notification --describe 
+
+Consumer group 'cg-notification' has no active members.
+
+GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+cg-notification t-commodity     0          26              26              0               -               -               -
+prateekashtikar@Prateeks-MacBook-Pro 06-customizing-json-msg % 
+```
