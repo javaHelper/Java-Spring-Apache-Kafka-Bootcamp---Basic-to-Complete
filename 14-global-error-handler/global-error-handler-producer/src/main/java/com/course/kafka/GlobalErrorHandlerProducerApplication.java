@@ -34,7 +34,7 @@ public class GlobalErrorHandlerProducerApplication implements CommandLineRunner{
 		
 		
 		for (int i = 100; i < 103; i++) {
-			SimpleNumber number = new SimpleNumber();
+			SimpleNumber number = new SimpleNumber(i);
 			numberProducer.send(number);
 		}
 	}
