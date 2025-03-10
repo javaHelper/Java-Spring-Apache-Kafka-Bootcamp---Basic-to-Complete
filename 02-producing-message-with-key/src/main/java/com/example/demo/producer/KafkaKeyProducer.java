@@ -12,5 +12,4 @@ public class KafkaKeyProducer {
     public void send(String key, String value){
         kafkaTemplate.send("t-multi-partitions", key, value);
     }
-
 }
