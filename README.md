@@ -14,6 +14,8 @@ docker-compose -f docker-compose-core.yml -p core up -d
 ```
 
 
+# docker-compose -f docker-compose-core.yml up
+
 ```
 version: "3"
 
