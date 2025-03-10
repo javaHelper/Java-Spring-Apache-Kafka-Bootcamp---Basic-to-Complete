@@ -1,0 +1,9 @@
+
+spring:
+  application:
+    name: customizing-json-format
+  main:
+    banner-mode: OFF
+    log-startup-info: false
+  jackson:
+    date-format: yyyy-MM-dd
