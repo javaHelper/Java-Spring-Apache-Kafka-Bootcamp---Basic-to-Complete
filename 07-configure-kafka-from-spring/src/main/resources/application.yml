@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 07-configure-kafka-from-spring
+  main:
+    banner-mode: OFF
+  kafka:
+    listener:
+      ack-mode: RECORD
+    consumer:
+      group-id: kafka-core-consumer-group
+      auto-offset-reset: earliest
+  jackson:
+    .date-format: yyyy-MM-dd
