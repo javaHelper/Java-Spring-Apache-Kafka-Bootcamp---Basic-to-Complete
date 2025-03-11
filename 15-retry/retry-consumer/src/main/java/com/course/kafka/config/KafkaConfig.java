@@ -33,7 +33,9 @@ public class KafkaConfig {
 		var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
 		configurer.configure(factory, consumerFactory());
 
-		factory.setCommonErrorHandler(new DefaultErrorHandler(new FixedBackOff(10_000, 3)));
+		FixedBackOff fixedBackOff = new FixedBackOff(10_000, 3);
+		DefaultErrorHandler defaultErrorHandler = new DefaultErrorHandler(fixedBackOff);
+		factory.setCommonErrorHandler(defaultErrorHandler);
 
 		return factory;
 	}

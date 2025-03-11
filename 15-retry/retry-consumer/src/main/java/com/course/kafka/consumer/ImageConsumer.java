@@ -22,7 +22,7 @@ public class ImageConsumer {
 
 	@KafkaListener(topics = "t-image", containerFactory = "imageRetryContainerFactory", concurrency = "2")
 	public void consume(ConsumerRecord<String, String> consumerRecord)
-			throws JsonMappingException, JsonProcessingException {
+			throws JsonProcessingException {
 		var image = objectMapper.readValue(consumerRecord.value(), Image.class);
 
 		if (image.getType().equalsIgnoreCase("svg")) {
