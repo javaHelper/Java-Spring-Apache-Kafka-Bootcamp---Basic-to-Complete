@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CommodityScheduler {
@@ -26,7 +27,7 @@ public class CommodityScheduler {
                 new ParameterizedTypeReference<List<Commodity>>() {
                 }).getBody();
 
-        commodities.forEach(commodity -> {
+        Objects.requireNonNull(commodities).forEach(commodity -> {
             try {
                 producer.sendMessage(commodity);
             } catch (JsonProcessingException e) {
