@@ -9,7 +9,6 @@ import com.course.kafka.consumer.PaymentRequestCacheKey;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
-
 @Configuration
 public class CacheConfig {
 
