@@ -11,8 +11,5 @@ spring:
       auto-offset-reset: earliest
   jackson:
     date-format: yyyy-MMM-dd
-    
-    
-    
 server:
   port: 8081

@@ -49,5 +49,4 @@ public class CarLocationScheduler {
 		LOG.info("Sent : {}", carTwo);
 		LOG.info("Sent : {}", carThree);
 	}
-
 }

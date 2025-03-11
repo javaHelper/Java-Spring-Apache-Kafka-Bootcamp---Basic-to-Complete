@@ -8,4 +8,5 @@ spring:
   jackson:
     date-format: yyyy-MMM-dd
     
-    
+server:
+  port: 8085

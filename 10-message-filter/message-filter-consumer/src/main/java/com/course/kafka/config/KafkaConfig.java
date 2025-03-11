@@ -5,6 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -26,8 +27,8 @@ public class KafkaConfig {
 	private ObjectMapper objectMapper;
 
 	@Bean
-	public ConsumerFactory<Object, Object> consumerFactory() {
-		var properties = kafkaProperties.buildConsumerProperties();
+	public ConsumerFactory<Object, Object> consumerFactory(SslBundles sslBundles) {
+		var properties = kafkaProperties.buildConsumerProperties(sslBundles);
 
 		properties.put(ConsumerConfig.METADATA_MAX_AGE_CONFIG, "120000");
 
@@ -36,24 +37,23 @@ public class KafkaConfig {
 
 	@Bean(name = "farLocationContainerFactory")
 	public ConcurrentKafkaListenerContainerFactory<Object, Object> farLocationContainerFactory(
-			ConcurrentKafkaListenerContainerFactoryConfigurer configurer) {
+			ConcurrentKafkaListenerContainerFactoryConfigurer configurer, SslBundles sslBundles) {
+
 		var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
-		configurer.configure(factory, consumerFactory());
+		configurer.configure(factory, consumerFactory(sslBundles));
 
 		factory.setRecordFilterStrategy(new RecordFilterStrategy<Object, Object>() {
 
 			@Override
 			public boolean filter(ConsumerRecord<Object, Object> consumerRecord) {
 				try {
-					CarLocation carLocation = objectMapper.readValue(consumerRecord.value().toString(),
-							CarLocation.class);
+					CarLocation carLocation = objectMapper.readValue(consumerRecord.value().toString(), CarLocation.class);
 					return carLocation.getDistance() <= 100;
 				} catch (JsonProcessingException e) {
 					return false;
 				}
 			}
 		});
-
 		return factory;
 	}
 }
