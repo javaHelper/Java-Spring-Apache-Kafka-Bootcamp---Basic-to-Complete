@@ -19,7 +19,7 @@ public class InvoiceProducer {
 
 	public void send(Invoice invoice) throws JsonProcessingException {
 		var json = objectMapper.writeValueAsString(invoice);
-		kafkaTemplate.send("t-invoice", invoice.getAmount() % 2, invoice.getInvoiceNumber(), json);
+		kafkaTemplate.send("t-invoice", invoice.getAmount() % 2,
+				invoice.getInvoiceNumber(), json);
 	}
-
 }

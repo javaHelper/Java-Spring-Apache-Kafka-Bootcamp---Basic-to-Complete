@@ -18,5 +18,4 @@ public class InvoiceService {
 		
 		return new Invoice(invoiceNumber, amount, "USD");
 	}
-	
 }

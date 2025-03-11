@@ -26,8 +26,6 @@ public class InvoiceConsumer {
 		if (invoice.getAmount() < 100000) {
 			throw new IllegalArgumentException("Invalid amount for " + invoice);
 		}
-		
 		LOG.info("Processing invoice : {}", invoice);
 	}
-	
 }

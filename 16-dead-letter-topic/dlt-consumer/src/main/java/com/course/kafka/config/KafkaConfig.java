@@ -48,7 +48,8 @@ public class KafkaConfig {
 		var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
 		configurer.configure(factory, consumerFactory());
 
-		var recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate, (record, ex) -> new TopicPartition("t-invoice-dead", record.partition()));
+		var recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate,
+				(record, ex) -> new TopicPartition("t-invoice-dead", record.partition()));
 
 		factory.setCommonErrorHandler(new DefaultErrorHandler(recoverer, new FixedBackOff(1000, 5)));
 
