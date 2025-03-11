@@ -17,9 +17,12 @@ public class PurchaseRequestProducer {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	public void send(PurchaseRequest purchaseRequest) throws JsonProcessingException {
-		var json = objectMapper.writeValueAsString(purchaseRequest);
-		kafkaTemplate.send("t-purchase-request", purchaseRequest.getPrNumber(), json);
+	public void sendPurchaseRequest(PurchaseRequest purchaseRequest) throws JsonProcessingException {
+		try {
+			var json = objectMapper.writeValueAsString(purchaseRequest);
+			kafkaTemplate.send("t-purchase-request", purchaseRequest.getPrNumber(), json);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
-
 }

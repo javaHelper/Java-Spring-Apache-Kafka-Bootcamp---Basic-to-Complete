@@ -33,7 +33,7 @@ public class PurchaseRequestConsumer {
 
 	@KafkaListener(topics = "t-purchase-request")
 	public void consume(String message) throws JsonMappingException, JsonProcessingException {
-		var purchaseRequest = objectMapper.readValue(message, PurchaseRequest.class);
+		PurchaseRequest purchaseRequest = objectMapper.readValue(message, PurchaseRequest.class);
 
 		var processed = isExistsInCache(purchaseRequest.getId());
 
