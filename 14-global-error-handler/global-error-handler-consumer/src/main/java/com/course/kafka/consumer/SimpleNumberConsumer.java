@@ -14,20 +14,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class SimpleNumberConsumer {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SimpleNumberConsumer.class);
-	
-	@Autowired
-	private ObjectMapper objectMapper;
-	
-	@KafkaListener(topics = "t-simple-number")
-	public void consume(String message) throws JsonMappingException, JsonProcessingException {
-		var simpleNumber = objectMapper.readValue(message, SimpleNumber.class);
-		
-		if (simpleNumber.getNumber() %2 != 0) {
-			throw new IllegalArgumentException("Odd number : " + simpleNumber.getNumber());
-		}
-		
-		LOG.info("Processing simpleNumber : {}", simpleNumber);
-	}
-	
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleNumberConsumer.class);
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @KafkaListener(topics = "t-simple-number")
+    public void consume(String message) throws JsonMappingException, JsonProcessingException {
+        var simpleNumber = objectMapper.readValue(message, SimpleNumber.class);
+
+        if (simpleNumber.getNumber() % 2 != 0) {
+            throw new IllegalArgumentException("Odd number : " + simpleNumber.getNumber());
+        }
+        LOG.info("Processing simpleNumber : {}", simpleNumber);
+    }
 }
