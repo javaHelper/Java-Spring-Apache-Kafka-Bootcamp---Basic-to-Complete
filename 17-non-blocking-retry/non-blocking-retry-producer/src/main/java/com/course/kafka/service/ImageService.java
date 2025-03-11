@@ -18,5 +18,4 @@ public class ImageService {
 		
 		return new Image(name, size, type);
 	}
-	
 }

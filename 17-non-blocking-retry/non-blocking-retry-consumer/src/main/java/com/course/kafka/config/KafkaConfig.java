@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -21,8 +22,8 @@ public class KafkaConfig {
 	private KafkaProperties kafkaProperties;
 
 	@Bean
-	public ConsumerFactory<Object, Object> consumerFactory() {
-		var properties = kafkaProperties.buildConsumerProperties();
+	public ConsumerFactory<Object, Object> consumerFactory(SslBundles sslBundles) {
+		var properties = kafkaProperties.buildConsumerProperties(sslBundles);
 
 		properties.put(ConsumerConfig.METADATA_MAX_AGE_CONFIG, "120000");
 
@@ -32,9 +33,10 @@ public class KafkaConfig {
 
 	@Bean(name = "imageRetryContainerFactory")
 	public ConcurrentKafkaListenerContainerFactory<Object, Object> imageRetryContainerFactory(
-			ConcurrentKafkaListenerContainerFactoryConfigurer configurer) {
+			ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+			SslBundles sslBundles) {
 		var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
-		configurer.configure(factory, consumerFactory());
+		configurer.configure(factory, consumerFactory(sslBundles));
 
 		factory.setCommonErrorHandler(new DefaultErrorHandler(new FixedBackOff(10_000, 3)));
 
@@ -43,9 +45,10 @@ public class KafkaConfig {
 
 	@Bean(name = "invoiceDltContainerFactory")
 	public ConcurrentKafkaListenerContainerFactory<Object, Object> invoiceDltContainerFactory(
-			ConcurrentKafkaListenerContainerFactoryConfigurer configurer, KafkaTemplate<String, String> kafkaTemplate) {
+			ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+			KafkaTemplate<String, String> kafkaTemplate, SslBundles sslBundles) {
 		var factory = new ConcurrentKafkaListenerContainerFactory<Object, Object>();
-		configurer.configure(factory, consumerFactory());
+		configurer.configure(factory, consumerFactory(sslBundles));
 
 		var recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate);
 
