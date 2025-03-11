@@ -22,13 +22,11 @@ public class FoodOrderConsumer {
 	private ObjectMapper objectMapper;
 
 	@KafkaListener(topics = "t-food-order", errorHandler = "myFoodOrderErrorHandler")
-	public void consume(String message) throws JsonMappingException, JsonProcessingException {
+	public void consume(String message) throws JsonProcessingException {
 		var foodOrder = objectMapper.readValue(message, FoodOrder.class);
 		if (foodOrder.getAmount() > MAX_ORDER_AMOUNT) {
 			throw new IllegalArgumentException("Order amount is too many : " + foodOrder.getAmount());
 		}
-
 		LOG.info("Processing food order : {}", foodOrder);
 	}
-
 }

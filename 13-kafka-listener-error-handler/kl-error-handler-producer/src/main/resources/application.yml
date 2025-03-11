@@ -7,3 +7,7 @@ spring:
     banner-mode: OFF
   jackson:
     date-format: yyyy-MMM-dd
+
+
+server:
+  port: 8085

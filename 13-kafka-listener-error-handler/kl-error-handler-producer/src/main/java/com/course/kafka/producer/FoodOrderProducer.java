@@ -22,5 +22,4 @@ public class FoodOrderProducer {
 		
 		kafkaTemplate.send("t-food-order", json);
 	}
-	
 }
