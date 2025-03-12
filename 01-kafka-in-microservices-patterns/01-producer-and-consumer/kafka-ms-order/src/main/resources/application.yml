@@ -1,0 +1,36 @@
+logging:
+  pattern:
+    console: "[Kafka Order] %clr(%d{HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(---){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+
+server:
+  port: 9001
+  
+spring:
+  main:
+    banner-mode: OFF
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:kafkaorderdb
+  kafka:
+    listener:
+      missing-topics-fatal: false
+    producer:
+      bootstrap-servers:
+      - localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: kafka-order-cg
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+      bootstrap-servers:
+      - localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer        
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.course.kafka.broker.message
