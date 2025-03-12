@@ -1,0 +1,52 @@
+-- Sample ksql script
+
+DROP STREAM IF EXISTS `s-commodity-pattern-from-script`;
+DROP STREAM IF EXISTS `s-commodity-reward-from-script`;
+DROP STREAM IF EXISTS `s-commodity-storage-from-script`;
+DROP STREAM IF EXISTS `s-commodity-order-from-script`;
+
+
+CREATE STREAM `s-commodity-order-from-script` (
+  `creditCardNumber` VARCHAR,
+  `itemName` VARCHAR,
+  `orderDateTime` VARCHAR,
+  `orderLocation` VARCHAR,
+  `orderNumber` VARCHAR KEY,
+  `price` INT,
+  `quantity` INT
+) WITH (
+  KAFKA_TOPIC = 't-commodity-order',
+  VALUE_FORMAT = 'JSON'
+);
+
+
+CREATE OR REPLACE STREAM `s-commodity-pattern-from-script`
+AS
+SELECT `itemName`, `orderDateTime`, `orderLocation`, 
+		 `orderNumber`, (`price` * `quantity`) as `totalItemAmount`
+  FROM `s-commodity-order-from-script`
+ WHERE LCASE(`itemName`) LIKE 'wooden%' 
+       OR LCASE(`itemName`) LIKE 'metal%' 
+EMIT CHANGES;
+
+
+CREATE OR REPLACE STREAM `s-commodity-reward-from-script`
+AS
+SELECT `itemName`, `orderDateTime`, `orderLocation`,
+		 `orderNumber`, `price`, `quantity`
+  FROM `s-commodity-order-from-script`
+ WHERE `quantity` >= 100
+       AND `price` >= 500
+EMIT CHANGES;
+
+
+CREATE OR REPLACE STREAM `s-commodity-storage-from-script`
+AS
+SELECT `itemName`, `orderDateTime`, `orderLocation`,
+		`orderNumber`, `price`, `quantity`
+  FROM `s-commodity-order-from-script`
+PARTITION BY `orderLocation`
+EMIT CHANGES;
+
+
+SET 'auto.offset.reset'='earliest';

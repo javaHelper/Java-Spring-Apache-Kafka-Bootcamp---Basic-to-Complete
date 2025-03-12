@@ -1,0 +1,76 @@
+version: "3"
+
+networks:
+  kafka-net:
+    name: kafka-net
+    driver: bridge
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    container_name: zookeeper
+    restart: unless-stopped
+    networks:
+      - kafka-net
+    ports:
+      - "2181:2181"
+#   Might be problematic if used, especially on Windows
+#    volumes:
+#      - "./data/zookeeper-data:/bitnami"
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+      
+  kafka:
+    image: docker.io/bitnami/kafka:3
+    container_name: kafka
+    restart: unless-stopped
+    networks:
+      - kafka-net
+    ports:
+      - "9092:9092"
+#   Might be problematic if used, especially on Windows
+#    volumes:
+#      - "./data/kafka-data:/bitnami"
+    environment:
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_CFG_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_BROKER_ID: 1
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+      - zookeeper
+      
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:7.1.0
+    container_name: kafka-connect
+    restart: unless-stopped
+    networks:
+      - kafka-net
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: kafka-connect-group-id
+      CONNECT_CONFIG_STORAGE_TOPIC: _connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _connect-status
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_LOG4J_APPENDER_STDOUT_LAYOUT_CONVERSIONPATTERN: "[%d] %p %X{connector.context}%m (%c:%L)%n"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connectors
+    volumes:
+      - ./data/kafka-connect-data/connectors:/data/connectors/
+      - ./data/kafka-connect-data/inputs:/data/inputs/
+      - ./data/kafka-connect-data/errors:/data/errors/
+      - ./data/kafka-connect-data/processed:/data/processed/
+    depends_on:
+      - kafka
