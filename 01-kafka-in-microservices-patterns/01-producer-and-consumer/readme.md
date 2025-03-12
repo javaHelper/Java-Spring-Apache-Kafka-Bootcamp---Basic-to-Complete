@@ -28,3 +28,5 @@ order logs
 [Kafka Order] 11:19:43.190  INFO --- c.c.k.b.consumer.OrderReplyConsumer      : Reply message received : OrderReplyMessage [replyMessage=Order 3PGXFQET, item iPhone 16 processed]
 ```
 
+You can send the random promotions and discounts.
+
